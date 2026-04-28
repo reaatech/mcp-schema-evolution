@@ -1,0 +1,46 @@
+[
+  {
+    "name": "search",
+    "description": "Search the knowledge base",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The search query string"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of results",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 10
+        }
+      },
+      "required": ["query"]
+    }
+  },
+  {
+    "name": "createUser",
+    "description": "Create a new user record",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the user",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user",
+          "pattern": "^[^@]+@[^@]+$"
+        }
+      },
+      "required": ["name", "email"]
+    }
+  }
+]
