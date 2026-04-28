@@ -36,6 +36,7 @@
   "homepage": "https://github.com/reaatech/mcp-schema-evolution#readme",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@eslint/js": "^10.0.1",
     "@modelcontextprotocol/sdk": "^1.0.0",
     "@types/node": "^25.6.0",
     "@typescript-eslint/eslint-plugin": "^8.59.1",
