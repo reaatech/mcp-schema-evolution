@@ -67,7 +67,10 @@ describe('bin.ts argument parsing', () => {
 
   it('exits with code 1 on breaking changes', () => {
     const dir = tempDir();
-    const baseTool = { name: 'search', inputSchema: { type: 'object', properties: { q: { type: 'string' } } } };
+    const baseTool = {
+      name: 'search',
+      inputSchema: { type: 'object', properties: { q: { type: 'string' } } },
+    };
     const base = join(dir, 'base.json');
     const head = join(dir, 'head.json');
     writeFileSync(base, JSON.stringify([baseTool]));

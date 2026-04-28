@@ -2,7 +2,12 @@ import { describe, it, expect } from 'vitest';
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { diffToolSnapshots, classifyChange, detectFieldRenames, loadToolsFromFile } from './diff.js';
+import {
+  diffToolSnapshots,
+  classifyChange,
+  detectFieldRenames,
+  loadToolsFromFile,
+} from './diff.js';
 import type { Tool, DetectedChange } from './types.js';
 
 function tempDir(): string {
@@ -415,12 +420,8 @@ describe('diffToolSnapshots', () => {
   });
 
   it('detects default value changes', () => {
-    const oldTools: Tool[] = [
-      makeTool('search', { limit: { type: 'number', default: 10 } }),
-    ];
-    const newTools: Tool[] = [
-      makeTool('search', { limit: { type: 'number', default: 25 } }),
-    ];
+    const oldTools: Tool[] = [makeTool('search', { limit: { type: 'number', default: 10 } })];
+    const newTools: Tool[] = [makeTool('search', { limit: { type: 'number', default: 25 } })];
 
     const result = diffToolSnapshots(oldTools, newTools);
     expect(result.ok).toBe(true);

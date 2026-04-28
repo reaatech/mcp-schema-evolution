@@ -259,8 +259,8 @@ function diffTool(oldTool: Tool, newTool: Tool, options?: DiffOptions): SchemaCh
       };
       changes.push(classifyChange(detected));
     }
-  return changes;
-}
+    return changes;
+  }
 
   const oldProps = oldSchema.properties ?? {};
   const newProps = newSchema.properties ?? {};
@@ -448,12 +448,7 @@ function diffProperty(
     const newEntries = newNested ?? {};
     const nestedPath = `${basePath}.properties`;
 
-    const nestedChanges = diffNestedProperties(
-      toolName,
-      nestedPath,
-      oldEntries,
-      newEntries
-    );
+    const nestedChanges = diffNestedProperties(toolName, nestedPath, oldEntries, newEntries);
     changes.push(...nestedChanges);
   }
 
@@ -617,11 +612,7 @@ export function classifyChange(detected: DetectedChange): SchemaChange {
       break;
     }
     case 'constraint_changed': {
-      const tightened = isConstraintTightened(
-        detected.constraintName ?? '',
-        oldValue,
-        newValue
-      );
+      const tightened = isConstraintTightened(detected.constraintName ?? '', oldValue, newValue);
       type = tightened ? 'breaking' : 'non-breaking';
       severity = tightened ? 'high' : 'medium';
       migration = {

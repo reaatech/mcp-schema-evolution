@@ -15,4 +15,9 @@ export {
   type MigrationGuidance,
 } from './types.js';
 
-export { diffToolSnapshots, classifyChange, detectFieldRenames, loadToolsFromFile } from './diff.js';
+export {
+  diffToolSnapshots,
+  classifyChange,
+  detectFieldRenames,
+  loadToolsFromFile,
+} from './diff.js';
