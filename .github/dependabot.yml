@@ -1,0 +1,21 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    versioning-strategy: increase
+    commit-message:
+      prefix: chore
+      prefix-development: chore
+      include: scope
+    groups:
+      major:
+        update-types:
+          - major
+      patch:
+        update-types:
+          - patch
+    open-pull-requests-limit: 10
