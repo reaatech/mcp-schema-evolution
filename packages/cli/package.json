@@ -1,0 +1,53 @@
+{
+  "name": "@mcp-schema-evolution/cli",
+  "version": "0.0.0",
+  "description": "Command-line interface for MCP schema evolution",
+  "type": "module",
+  "bin": {
+    "mcp-evolution": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "mcp",
+    "schema",
+    "evolution",
+    "cli",
+    "json-schema",
+    "backward-compatibility",
+    "model-context-protocol"
+  ],
+  "author": "Rick Somers <rick@reaatech.com> (https://reaatech.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reaatech/mcp-schema-evolution.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/reaatech/mcp-schema-evolution/issues"
+  },
+  "homepage": "https://github.com/reaatech/mcp-schema-evolution#readme",
+  "dependencies": {
+    "@mcp-schema-evolution/core": "workspace:*",
+    "commander": "^14.0.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
