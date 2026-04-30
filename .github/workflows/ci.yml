@@ -201,13 +201,6 @@ jobs:
       - name: Build packages
         run: pnpm build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-dist
-          path: packages/*/dist
-          retention-days: 1
-
   # ─────────────────────────────────────────────
   # Test
   # ─────────────────────────────────────────────
@@ -244,10 +237,8 @@ jobs:
       - name: Re-link workspace packages
         run: pnpm install --frozen-lockfile --prefer-offline
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-dist
+      - name: Build packages
+        run: pnpm build
 
       - name: Run tests
         run: pnpm test
@@ -284,10 +275,8 @@ jobs:
       - name: Re-link workspace packages
         run: pnpm install --frozen-lockfile --prefer-offline
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-dist
+      - name: Build packages
+        run: pnpm build
 
       - name: Run tests with coverage
         run: pnpm test:coverage

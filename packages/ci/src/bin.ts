@@ -6,11 +6,18 @@ interface ParsedArgs {
   base: string | undefined;
   head: string | undefined;
   format: 'github-markdown' | 'text';
+  acknowledgmentFile: string | undefined;
   help: boolean;
 }
 
 function parseArgs(argv: string[]): ParsedArgs {
-  const result: ParsedArgs = { base: undefined, head: undefined, format: 'text', help: false };
+  const result: ParsedArgs = {
+    base: undefined,
+    head: undefined,
+    format: 'text',
+    acknowledgmentFile: undefined,
+    help: false,
+  };
 
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
@@ -23,6 +30,9 @@ function parseArgs(argv: string[]): ParsedArgs {
         break;
       case '--format':
         result.format = argv[++i] === 'github-markdown' ? 'github-markdown' : 'text';
+        break;
+      case '--acknowledgment-file':
+        result.acknowledgmentFile = argv[++i];
         break;
       case '--help':
       case '-h':
@@ -38,10 +48,11 @@ function printHelp(): void {
   console.log(`Usage: mcp-evolution-ci --base <path> --head <path> [options]
 
 Options:
-  --base <path>       Path to the base (old) tool snapshot JSON
-  --head <path>       Path to the head (new) tool snapshot JSON
-  --format <format>   Output format: text (default) or github-markdown
-  --help, -h          Show this help message
+  --base <path>                Path to the base (old) tool snapshot JSON
+  --head <path>                Path to the head (new) tool snapshot JSON
+  --format <format>            Output format: text (default) or github-markdown
+  --acknowledgment-file <path> Path to the acknowledgment file
+  --help, -h                   Show this help message
 
 Example:
   mcp-evolution-ci --base tools.v1.json --head tools.v2.json --format github-markdown
@@ -62,7 +73,11 @@ export function main(argv: string[] = process.argv.slice(2)): void {
     process.exit(1);
   }
 
-  const result = validateSnapshot({ baseSnapshot: args.base, headSnapshot: args.head });
+  const result = validateSnapshot({
+    baseSnapshot: args.base,
+    headSnapshot: args.head,
+    ...(args.acknowledgmentFile ? { policy: { acknowledgmentFile: args.acknowledgmentFile } } : {}),
+  });
   const report = formatReport(result, { format: args.format });
 
   console.log(report);

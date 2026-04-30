@@ -43,6 +43,7 @@ jobs:
             --base snapshots/base.snapshot.json \
             --head snapshots/head.snapshot.json \
             --format github-markdown \
+            --acknowledgment-file .schema-breaking-allowed \
             > report.md
 
       - name: Comment PR
