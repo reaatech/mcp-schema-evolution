@@ -1,10 +1,10 @@
 import { existsSync, readFileSync } from 'node:fs';
 import {
-  diffToolSnapshots,
-  loadToolsFromFile,
   type EvolutionError,
   type SchemaChange,
-} from '@mcp-schema-evolution/core';
+  diffToolSnapshots,
+  loadToolsFromFile,
+} from '@reaatech/mcp-schema-evolution';
 
 export interface ValidationPolicy {
   failOnBreaking?: boolean;
@@ -53,7 +53,7 @@ function parseAcknowledgmentFile(filePath: string): AcknowledgedChange[] {
 
 function isBreakingChangeAcknowledged(
   change: SchemaChange,
-  acknowledged: AcknowledgedChange[]
+  acknowledged: AcknowledgedChange[],
 ): boolean {
   return acknowledged.some(
     (ack) =>
@@ -61,7 +61,7 @@ function isBreakingChangeAcknowledged(
       (ack.category === change.category || ack.category === '*') &&
       (!ack.description ||
         change.description.toLowerCase().includes(ack.description.toLowerCase()) ||
-        ack.description.toLowerCase().includes(change.description.toLowerCase()))
+        ack.description.toLowerCase().includes(change.description.toLowerCase())),
   );
 }
 
@@ -121,7 +121,7 @@ export function validateSnapshot(options: {
     acknowledgedChanges = parseAcknowledgmentFile(options.policy.acknowledgmentFile);
     acknowledged = acknowledgedChanges.length > 0;
     const unacknowledged = changes.filter(
-      (c) => c.type === 'breaking' && !isBreakingChangeAcknowledged(c, acknowledgedChanges)
+      (c) => c.type === 'breaking' && !isBreakingChangeAcknowledged(c, acknowledgedChanges),
     );
     unacknowledgedBreaking = unacknowledged.length;
   }
@@ -146,7 +146,7 @@ export function validateSnapshot(options: {
  */
 export function formatReport(
   result: ValidationResult,
-  options: { format: 'github-markdown' | 'text' } = { format: 'github-markdown' }
+  options: { format: 'github-markdown' | 'text' } = { format: 'github-markdown' },
 ): string {
   if (options.format !== 'github-markdown') {
     // Simple text fallback
@@ -171,8 +171,8 @@ export function formatReport(
   }
 
   lines.push('');
-  lines.push(`| Metric | Value |`);
-  lines.push(`|--------|-------|`);
+  lines.push('| Metric | Value |');
+  lines.push('|--------|-------|');
   lines.push(`| Total changes | ${result.changes.length} |`);
   lines.push(`| Breaking changes | ${result.breakingCount} |`);
   lines.push(`| Acknowledged | ${result.acknowledged ? 'Yes' : 'No'} |`);
@@ -199,7 +199,7 @@ export function formatReport(
 
   if (!result.ok && result.breakingCount > 0 && !result.acknowledged) {
     lines.push(
-      '> To allow these breaking changes, create an acknowledgment file (e.g., `.schema-breaking-allowed`).'
+      '> To allow these breaking changes, create an acknowledgment file (e.g., `.schema-breaking-allowed`).',
     );
   }
 

@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
-import { main } from './bin.js';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { main } from './bin.js';
 
 function tempDir(): string {
   return mkdtempSync(join(tmpdir(), 'mcp-evolution-ci-bin-test-'));

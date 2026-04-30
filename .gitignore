@@ -48,5 +48,11 @@ docs/changelogs/
 schema-validation-results.json
 schema-changes.json
 
+# Build artifacts in source (stale tsc/tsup output)
+packages/*/src/**/*.js
+packages/*/src/**/*.js.map
+packages/*/src/**/*.d.ts
+packages/*/src/**/*.d.ts.map
+
 # Project-specific files
 DEV_PLAN.md

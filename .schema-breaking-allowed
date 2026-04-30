@@ -1,0 +1,4 @@
+# .schema-breaking-allowed
+# Format: TOOL_NAME|CHANGE_CATEGORY|DESCRIPTION
+search|field_renamed|Field "query" was renamed to "q" in "search"
+search|constraint_changed|Constraint "maximum" on "limit" tightened from 100 to 50

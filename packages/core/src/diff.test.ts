@@ -1,14 +1,14 @@
-import { describe, it, expect } from 'vitest';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { describe, expect, it } from 'vitest';
 import {
-  diffToolSnapshots,
   classifyChange,
   detectFieldRenames,
+  diffToolSnapshots,
   loadToolsFromFile,
 } from './diff.js';
-import type { Tool, DetectedChange } from './types.js';
+import type { DetectedChange, Tool } from './types.js';
 
 function tempDir(): string {
   return mkdtempSync(join(tmpdir(), 'mcp-evolution-core-test-'));
@@ -79,7 +79,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const added = result.value.find((c) => c.category === 'field_added');
       expect(added).toBeDefined();
-      expect(added!.type).toBe('non-breaking');
+      expect(added?.type).toBe('non-breaking');
     }
   });
 
@@ -94,7 +94,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const added = result.value.find((c) => c.category === 'field_added');
       expect(added).toBeDefined();
-      expect(added!.type).toBe('breaking');
+      expect(added?.type).toBe('breaking');
     }
   });
 
@@ -109,7 +109,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const removed = result.value.find((c) => c.category === 'field_removed');
       expect(removed).toBeDefined();
-      expect(removed!.type).toBe('breaking');
+      expect(removed?.type).toBe('breaking');
     }
   });
 
@@ -122,7 +122,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const typeChange = result.value.find((c) => c.category === 'type_changed');
       expect(typeChange).toBeDefined();
-      expect(typeChange!.type).toBe('breaking');
+      expect(typeChange?.type).toBe('breaking');
     }
   });
 
@@ -135,7 +135,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const reqChange = result.value.find((c) => c.category === 'required_changed');
       expect(reqChange).toBeDefined();
-      expect(reqChange!.type).toBe('breaking');
+      expect(reqChange?.type).toBe('breaking');
     }
   });
 
@@ -148,7 +148,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const reqChange = result.value.find((c) => c.category === 'required_changed');
       expect(reqChange).toBeDefined();
-      expect(reqChange!.type).toBe('non-breaking');
+      expect(reqChange?.type).toBe('non-breaking');
     }
   });
 
@@ -165,7 +165,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const constraint = result.value.find((c) => c.category === 'constraint_changed');
       expect(constraint).toBeDefined();
-      expect(constraint!.type).toBe('breaking');
+      expect(constraint?.type).toBe('breaking');
     }
   });
 
@@ -182,7 +182,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const constraint = result.value.find((c) => c.category === 'constraint_changed');
       expect(constraint).toBeDefined();
-      expect(constraint!.type).toBe('non-breaking');
+      expect(constraint?.type).toBe('non-breaking');
     }
   });
 
@@ -226,10 +226,10 @@ describe('diffToolSnapshots', () => {
     expect(result.ok).toBe(true);
     if (result.ok) {
       const typeChange = result.value.find(
-        (c) => c.category === 'type_changed' && c.path.includes('.zip')
+        (c) => c.category === 'type_changed' && c.path.includes('.zip'),
       );
       expect(typeChange).toBeDefined();
-      expect(typeChange!.type).toBe('breaking');
+      expect(typeChange?.type).toBe('breaking');
     }
   });
 
@@ -272,10 +272,10 @@ describe('diffToolSnapshots', () => {
     expect(result.ok).toBe(true);
     if (result.ok) {
       const removed = result.value.find(
-        (c) => c.category === 'field_removed' && c.path.includes('.city')
+        (c) => c.category === 'field_removed' && c.path.includes('.city'),
       );
       expect(removed).toBeDefined();
-      expect(removed!.type).toBe('breaking');
+      expect(removed?.type).toBe('breaking');
     }
   });
 
@@ -318,10 +318,10 @@ describe('diffToolSnapshots', () => {
     expect(result.ok).toBe(true);
     if (result.ok) {
       const added = result.value.find(
-        (c) => c.category === 'field_added' && c.path.includes('.city')
+        (c) => c.category === 'field_added' && c.path.includes('.city'),
       );
       expect(added).toBeDefined();
-      expect(added!.type).toBe('non-breaking');
+      expect(added?.type).toBe('non-breaking');
     }
   });
 
@@ -359,10 +359,10 @@ describe('diffToolSnapshots', () => {
     expect(result.ok).toBe(true);
     if (result.ok) {
       const typeChange = result.value.find(
-        (c) => c.category === 'type_changed' && c.path.includes('.items.type')
+        (c) => c.category === 'type_changed' && c.path.includes('.items.type'),
       );
       expect(typeChange).toBeDefined();
-      expect(typeChange!.type).toBe('breaking');
+      expect(typeChange?.type).toBe('breaking');
     }
   });
 
@@ -413,7 +413,7 @@ describe('diffToolSnapshots', () => {
     expect(result.ok).toBe(true);
     if (result.ok) {
       const added = result.value.find(
-        (c) => c.category === 'field_added' && c.path.includes('.pinned')
+        (c) => c.category === 'field_added' && c.path.includes('.pinned'),
       );
       expect(added).toBeDefined();
     }
@@ -428,7 +428,7 @@ describe('diffToolSnapshots', () => {
     if (result.ok) {
       const defaultChange = result.value.find((c) => c.category === 'default_changed');
       expect(defaultChange).toBeDefined();
-      expect(defaultChange!.type).toBe('non-breaking');
+      expect(defaultChange?.type).toBe('non-breaking');
     }
   });
 
@@ -611,7 +611,7 @@ describe('detectFieldRenames', () => {
     if (result.ok) {
       const rename = result.value.find((c) => c.category === 'field_renamed');
       expect(rename).toBeDefined();
-      expect(rename!.type).toBe('breaking');
+      expect(rename?.type).toBe('breaking');
 
       const removed = result.value.find((c) => c.category === 'field_removed');
       const added = result.value.find((c) => c.category === 'field_added');

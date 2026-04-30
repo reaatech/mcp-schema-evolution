@@ -9,7 +9,7 @@ Keep schema operations fast and memory-efficient. Targets: diff <50ms for 100 to
 ## Key Patterns
 
 ```typescript
-import { diffToolSnapshots } from '@mcp-schema-evolution/core';
+import { diffToolSnapshots } from '@reaatech/mcp-schema-evolution';
 
 // Use caching for repeated diffs against the same base
 const result = diffToolSnapshots(oldTools, newTools, {
@@ -23,7 +23,7 @@ const result = diffToolSnapshots(oldTools, newTools, {
 
 ```typescript
 import { bench, describe } from 'vitest';
-import { diffToolSnapshots } from '@mcp-schema-evolution/core';
+import { diffToolSnapshots } from '@reaatech/mcp-schema-evolution';
 
 describe('diff performance', () => {
   bench(

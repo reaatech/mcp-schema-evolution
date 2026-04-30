@@ -1,6 +1,6 @@
 # Schema Diffing
 
-> **Status**: Implemented. Core API available in `@mcp-schema-evolution/core`.
+> **Status**: Implemented. Core API available in `@reaatech/mcp-schema-evolution`.
 
 ## Purpose
 
@@ -9,7 +9,7 @@ Compare two `Tool[]` snapshots and classify changes as breaking, non-breaking, o
 ## Key Patterns
 
 ```typescript
-import { diffToolSnapshots, classifyChange } from '@mcp-schema-evolution/core';
+import { diffToolSnapshots, classifyChange } from '@reaatech/mcp-schema-evolution';
 import type { Tool } from '@modelcontextprotocol/sdk';
 
 const changes = diffToolSnapshots(oldTools, newTools);
@@ -26,7 +26,7 @@ if (changes.ok) {
 ### Detect field renames automatically
 
 ```typescript
-import { detectFieldRenames } from '@mcp-schema-evolution/core';
+import { detectFieldRenames } from '@reaatech/mcp-schema-evolution';
 
 const renames = detectFieldRenames(oldTool, newTool, { threshold: 0.8 });
 // [{ from: 'name', to: 'full_name', confidence: 0.95 }]
@@ -35,7 +35,7 @@ const renames = detectFieldRenames(oldTool, newTool, { threshold: 0.8 });
 ### Custom classification rule
 
 ```typescript
-import { classifyChange } from '@mcp-schema-evolution/core';
+import { classifyChange } from '@reaatech/mcp-schema-evolution';
 
 const rule = (change: DetectedChange): ChangeType => {
   if (change.category === 'field_added' && change.fieldName === 'internal_id') {
@@ -50,7 +50,7 @@ const rule = (change: DetectedChange): ChangeType => {
 ```typescript
 import { it, expect } from 'vitest';
 import fc from 'fast-check';
-import { diffToolSnapshots } from '@mcp-schema-evolution/core';
+import { diffToolSnapshots } from '@reaatech/mcp-schema-evolution';
 
 it('should always detect a removed required field as breaking', () => {
   fc.assert(

@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "@reaatech/mcp-schema-evolution": ["./packages/core/src/index.ts"],
+      "@reaatech/mcp-schema-evolution-cli": ["./packages/cli/src/index.ts"],
+      "@reaatech/mcp-schema-evolution-ci": ["./packages/ci/src/index.ts"]
+    },
+    "ignoreDeprecations": "6.0"
+  }
+}

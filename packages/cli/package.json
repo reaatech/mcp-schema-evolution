@@ -1,13 +1,34 @@
 {
-  "name": "@mcp-schema-evolution/cli",
+  "name": "@reaatech/mcp-schema-evolution-cli",
   "version": "0.0.0",
   "description": "Command-line interface for MCP schema evolution",
+  "license": "MIT",
+  "author": "Rick Somers <rick@reaatech.com> (https://reaatech.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reaatech/mcp-schema-evolution.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/reaatech/mcp-schema-evolution#readme",
+  "bugs": {
+    "url": "https://github.com/reaatech/mcp-schema-evolution/issues"
+  },
   "type": "module",
   "bin": {
     "mcp-evolution": "./dist/index.js"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
@@ -24,30 +45,13 @@
     "backward-compatibility",
     "model-context-protocol"
   ],
-  "author": "Rick Somers <rick@reaatech.com> (https://reaatech.com)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reaatech/mcp-schema-evolution.git",
-    "directory": "packages/cli"
-  },
-  "bugs": {
-    "url": "https://github.com/reaatech/mcp-schema-evolution/issues"
-  },
-  "homepage": "https://github.com/reaatech/mcp-schema-evolution#readme",
   "dependencies": {
-    "@mcp-schema-evolution/core": "workspace:*",
+    "@reaatech/mcp-schema-evolution": "workspace:*",
     "commander": "^14.0.3"
   },
-  "files": [
-    "dist"
-  ],
   "devDependencies": {
     "@types/node": "^25.6.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

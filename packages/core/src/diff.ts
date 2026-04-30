@@ -1,15 +1,15 @@
 import { readFileSync } from 'node:fs';
 import {
+  type ChangeType,
+  type DetectedChange,
+  type DiffOptions,
   EvolutionError,
   type EvolutionErrorOptions,
-  type Tool,
-  type Result,
-  type DetectedChange,
-  type SchemaChange,
-  type ChangeType,
   type FieldRename,
-  type DiffOptions,
   type MigrationGuidance,
+  type Result,
+  type SchemaChange,
+  type Tool,
 } from './types.js';
 
 function isTool(value: unknown): value is Tool {
@@ -173,7 +173,7 @@ function deepEqual(a: unknown, b: unknown): boolean {
 export function diffToolSnapshots(
   oldTools: Tool[],
   newTools: Tool[],
-  options?: DiffOptions
+  options?: DiffOptions,
 ): Result<SchemaChange[]> {
   try {
     const changes: SchemaChange[] = [];
@@ -348,7 +348,7 @@ function diffTool(oldTool: Tool, newTool: Tool, options?: DiffOptions): SchemaCh
         oldProp,
         newProp,
         oldRequired.has(fieldName),
-        newRequired.has(fieldName)
+        newRequired.has(fieldName),
       );
       changes.push(...fieldChanges);
     }
@@ -364,7 +364,7 @@ function diffProperty(
   newProp: JSONSchemaProperty,
   oldRequired: boolean,
   newRequired: boolean,
-  basePathOverride?: string
+  basePathOverride?: string,
 ): SchemaChange[] {
   const changes: SchemaChange[] = [];
   const basePath = basePathOverride ?? `${toolName}.inputSchema.properties.${fieldName}`;
@@ -430,7 +430,7 @@ function diffProperty(
           String(constraint),
           fieldName,
           oldProp[constraint],
-          newProp[constraint]
+          newProp[constraint],
         ),
         oldValue: oldProp[constraint],
         newValue: newProp[constraint],
@@ -464,7 +464,7 @@ function diffProperty(
       newItems,
       false,
       false,
-      nestedPath
+      nestedPath,
     );
     changes.push(...itemChanges);
   }
@@ -476,7 +476,7 @@ function diffNestedProperties(
   toolName: string,
   basePath: string,
   oldProps: Record<string, JSONSchemaProperty>,
-  newProps: Record<string, JSONSchemaProperty>
+  newProps: Record<string, JSONSchemaProperty>,
 ): SchemaChange[] {
   const changes: SchemaChange[] = [];
   const oldKeys = new Set(Object.keys(oldProps));
@@ -513,7 +513,7 @@ function diffNestedProperties(
     const newProp = newProps[key];
     if (oldProp && newProp && newKeys.has(key)) {
       changes.push(
-        ...diffProperty(toolName, key, oldProp, newProp, false, false, `${basePath}.${key}`)
+        ...diffProperty(toolName, key, oldProp, newProp, false, false, `${basePath}.${key}`),
       );
     }
   }
@@ -572,7 +572,7 @@ export function classifyChange(detected: DetectedChange): SchemaChange {
         type = 'non-breaking';
         severity = 'medium';
         migration = {
-          suggestion: `No action needed; new field is optional`,
+          suggestion: 'No action needed; new field is optional',
           automated: true,
         };
       }
@@ -582,7 +582,7 @@ export function classifyChange(detected: DetectedChange): SchemaChange {
       type = 'breaking';
       severity = 'high';
       migration = {
-        suggestion: `Update references to use the new field name`,
+        suggestion: 'Update references to use the new field name',
         automated: true,
       };
       break;
@@ -591,7 +591,7 @@ export function classifyChange(detected: DetectedChange): SchemaChange {
       type = 'breaking';
       severity = 'high';
       migration = {
-        suggestion: `Update values to match the new type`,
+        suggestion: 'Update values to match the new type',
         automated: true,
       };
       break;
@@ -601,8 +601,8 @@ export function classifyChange(detected: DetectedChange): SchemaChange {
       type = becameRequired ? 'breaking' : 'non-breaking';
       severity = becameRequired ? 'high' : 'medium';
       migration = becameRequired
-        ? { suggestion: `Provide a value for the now-required field`, automated: true }
-        : { suggestion: `No action needed`, automated: true };
+        ? { suggestion: 'Provide a value for the now-required field', automated: true }
+        : { suggestion: 'No action needed', automated: true };
       break;
     }
     case 'default_changed': {
@@ -617,8 +617,8 @@ export function classifyChange(detected: DetectedChange): SchemaChange {
       severity = tightened ? 'high' : 'medium';
       migration = {
         suggestion: tightened
-          ? `Ensure values comply with the stricter constraint`
-          : `No action needed`,
+          ? 'Ensure values comply with the stricter constraint'
+          : 'No action needed',
         automated: false,
       };
       break;
@@ -627,7 +627,7 @@ export function classifyChange(detected: DetectedChange): SchemaChange {
       type = 'non-breaking';
       severity = 'medium';
       migration = {
-        suggestion: `Migrate away from the deprecated field before its sunset date`,
+        suggestion: 'Migrate away from the deprecated field before its sunset date',
         automated: false,
       };
       break;
@@ -657,7 +657,7 @@ export function classifyChange(detected: DetectedChange): SchemaChange {
 function isConstraintTightened(
   constraintName: string,
   oldValue: unknown,
-  newValue: unknown
+  newValue: unknown,
 ): boolean {
   if (typeof oldValue === 'number' && typeof newValue === 'number') {
     if (oldValue === newValue) return false;
@@ -687,7 +687,7 @@ function formatConstraintDescription(
   constraintName: string,
   fieldName: string,
   oldValue: unknown,
-  newValue: unknown
+  newValue: unknown,
 ): string {
   const oldStr = JSON.stringify(oldValue);
   const newStr = JSON.stringify(newValue);
@@ -709,7 +709,7 @@ function formatConstraintDescription(
 export function detectFieldRenames(
   oldTool: Tool,
   newTool: Tool,
-  options?: { threshold?: number }
+  options?: { threshold?: number },
 ): FieldRename[] {
   const threshold = options?.threshold ?? 0.8;
   const renames: FieldRename[] = [];

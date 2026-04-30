@@ -9,7 +9,7 @@ Generate adapter functions that map old tool call arguments to new schema shapes
 ## Key Patterns
 
 ```typescript
-import { generateWrapper } from '@mcp-schema-evolution/core';
+import { generateWrapper } from '@reaatech/mcp-schema-evolution';
 import type { Tool } from '@modelcontextprotocol/sdk';
 
 const wrapper = generateWrapper(oldTools, newTools, changes, {
