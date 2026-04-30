@@ -9,7 +9,7 @@ Transform schema diffs into human-readable changelogs with migration guidance.
 ## Key Patterns
 
 ```typescript
-import { generateChangelog, toMarkdown } from '@mcp-schema-evolution/core';
+import { generateChangelog, toMarkdown } from '@reaatech/mcp-schema-evolution';
 
 const changelog = generateChangelog({
   version: '2.0.0',
@@ -41,7 +41,7 @@ console.log(toMarkdown(changelog));
 ### Suggest semantic version
 
 ```typescript
-import { suggestVersion } from '@mcp-schema-evolution/core';
+import { suggestVersion } from '@reaatech/mcp-schema-evolution';
 
 const { version, bumpType } = suggestVersion('1.2.3', diffResult.value);
 // version: '2.0.0', bumpType: 'major'

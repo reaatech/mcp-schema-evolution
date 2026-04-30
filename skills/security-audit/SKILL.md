@@ -9,7 +9,7 @@ Prevent malicious schema definitions and unsafe transforms from entering the pip
 ## Key Patterns
 
 ```typescript
-import { validateSnapshotSecurity } from '@mcp-schema-evolution/core';
+import { validateSnapshotSecurity } from '@reaatech/mcp-schema-evolution';
 
 const result = validateSnapshotSecurity(tools);
 // Checks for path traversal in tool names, XSS in field names, etc.
@@ -39,7 +39,7 @@ const result = validateSnapshotSecurity(badTools);
 ### Reject eval in custom transforms
 
 ```typescript
-import { validateTransform } from '@mcp-schema-evolution/core';
+import { validateTransform } from '@reaatech/mcp-schema-evolution';
 
 const result = validateTransform(`
   (args) => { eval(args.code); return args; }

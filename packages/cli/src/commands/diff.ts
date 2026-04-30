@@ -1,8 +1,8 @@
 import {
+  type SchemaChange,
   diffToolSnapshots,
   loadToolsFromFile,
-  type SchemaChange,
-} from '@mcp-schema-evolution/core';
+} from '@reaatech/mcp-schema-evolution';
 
 function formatChange(change: SchemaChange): string {
   const icon = change.type === 'breaking' ? '🔴' : change.type === 'non-breaking' ? '🟡' : '🔵';

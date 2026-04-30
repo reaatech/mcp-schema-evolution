@@ -1,6 +1,6 @@
 # CI/CD Integration
 
-> **Status**: Partially implemented. Basic validation and reporting available in `@mcp-schema-evolution/ci`.
+> **Status**: Partially implemented. Basic validation and reporting available in `@reaatech/mcp-schema-evolution-ci`.
 
 ## Purpose
 
@@ -9,7 +9,7 @@ Block builds on unacknowledged breaking changes and report schema evolution stat
 ## Key Patterns
 
 ```typescript
-import { validateSnapshot } from '@mcp-schema-evolution/ci';
+import { validateSnapshot } from '@reaatech/mcp-schema-evolution-ci';
 
 const result = validateSnapshot({
   baseSnapshot: 'tools.snapshot.json', // from main branch
@@ -60,7 +60,7 @@ search|field_removed|Removed "query" — replaced by "q" in v1.2.0, all clients 
 ### Post PR comment with results
 
 ```typescript
-import { formatReport } from '@mcp-schema-evolution/ci';
+import { formatReport } from '@reaatech/mcp-schema-evolution-ci';
 
 const comment = formatReport(result, { format: 'github-markdown' });
 await github.rest.issues.createComment({

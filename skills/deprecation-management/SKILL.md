@@ -11,7 +11,7 @@ Track deprecated fields and tools with sunset timelines, and warn when deprecate
 Deprecations live in a sidecar file (`tools.deprecations.json`), not in the Tool definition itself, since the MCP spec has no deprecation field.
 
 ```typescript
-import { loadDeprecations, checkDeprecation, isSunsetReached } from '@mcp-schema-evolution/core';
+import { loadDeprecations, checkDeprecation, isSunsetReached } from '@reaatech/mcp-schema-evolution';
 
 const deprecations = loadDeprecations('./tools.deprecations.json');
 
@@ -32,7 +32,7 @@ const warnings = checkDeprecation(
 ### Annotate a deprecation
 
 ```typescript
-import { annotateDeprecation } from '@mcp-schema-evolution/core';
+import { annotateDeprecation } from '@reaatech/mcp-schema-evolution';
 
 const updated = annotateDeprecation(deprecations, {
   toolName: 'search',
@@ -46,7 +46,7 @@ const updated = annotateDeprecation(deprecations, {
 ### Block calls after sunset
 
 ```typescript
-import { isSunsetReached } from '@mcp-schema-evolution/core';
+import { isSunsetReached } from '@reaatech/mcp-schema-evolution';
 
 for (const warning of warnings) {
   if (isSunsetReached(warning)) {

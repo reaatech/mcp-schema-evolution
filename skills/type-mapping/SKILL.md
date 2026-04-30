@@ -9,7 +9,7 @@ Safe type coercion between JSON Schema types during wrapper generation and valid
 ## Key Patterns
 
 ```typescript
-import { coerceValue, analyzeCompatibility } from '@mcp-schema-evolution/core';
+import { coerceValue, analyzeCompatibility } from '@reaatech/mcp-schema-evolution';
 
 // Coerce a single value
 const result = coerceValue('25', { from: 'string', to: 'number' });
@@ -33,7 +33,7 @@ const unsafe = analyzeCompatibility({ type: 'string' }, { type: 'number' }); // 
 ### Register custom converter
 
 ```typescript
-import { registerConverter } from '@mcp-schema-evolution/core';
+import { registerConverter } from '@reaatech/mcp-schema-evolution';
 
 registerConverter({
   from: 'string',
