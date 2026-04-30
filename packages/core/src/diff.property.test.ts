@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest';
 import fc from 'fast-check';
-import { diffToolSnapshots, classifyChange } from './diff.js';
-import type { Tool, DetectedChange } from './types.js';
+import { describe, expect, it } from 'vitest';
+import { classifyChange, diffToolSnapshots } from './diff.js';
+import type { DetectedChange, Tool } from './types.js';
 
 function makeTool(name: string, properties: Record<string, unknown>, required?: string[]): Tool {
   return {
@@ -30,12 +30,12 @@ describe('diffToolSnapshots property-based', () => {
           expect(result.ok).toBe(true);
           if (result.ok) {
             const breaking = result.value.filter(
-              (c) => c.category === 'field_removed' && c.type === 'breaking'
+              (c) => c.category === 'field_removed' && c.type === 'breaking',
             );
             expect(breaking.length).toBeGreaterThanOrEqual(1);
           }
-        }
-      )
+        },
+      ),
     );
   });
 
@@ -55,10 +55,10 @@ describe('diffToolSnapshots property-based', () => {
           if (result.ok) {
             const added = result.value.find((c) => c.category === 'field_added');
             expect(added).toBeDefined();
-            expect(added!.type).toBe('breaking');
+            expect(added?.type).toBe('breaking');
           }
-        }
-      )
+        },
+      ),
     );
   });
 
@@ -72,17 +72,17 @@ describe('diffToolSnapshots property-based', () => {
               fc.record({
                 fieldName: fc.string({ minLength: 1, maxLength: 20 }),
                 fieldType: fc.constantFrom('string', 'number', 'boolean'),
-              })
+              }),
             ),
           }),
-          { minLength: 0, maxLength: 5 }
+          { minLength: 0, maxLength: 5 },
         ),
         (tools) => {
           const snapshot: Tool[] = tools.map((t) =>
             makeTool(
               t.name,
-              Object.fromEntries(t.fields.map((f) => [f.fieldName, { type: f.fieldType }]))
-            )
+              Object.fromEntries(t.fields.map((f) => [f.fieldName, { type: f.fieldType }])),
+            ),
           );
 
           const result = diffToolSnapshots(snapshot, snapshot);
@@ -90,8 +90,8 @@ describe('diffToolSnapshots property-based', () => {
           if (result.ok) {
             expect(result.value).toHaveLength(0);
           }
-        }
-      )
+        },
+      ),
     );
   });
 
@@ -109,10 +109,10 @@ describe('diffToolSnapshots property-based', () => {
           if (result.ok) {
             const typeChange = result.value.find((c) => c.category === 'type_changed');
             expect(typeChange).toBeDefined();
-            expect(typeChange!.type).toBe('breaking');
+            expect(typeChange?.type).toBe('breaking');
           }
-        }
-      )
+        },
+      ),
     );
   });
 });
@@ -132,8 +132,8 @@ describe('classifyChange invariants', () => {
           };
           const result = classifyChange(detected);
           expect(result.type).toBe('breaking');
-        }
-      )
+        },
+      ),
     );
   });
 
@@ -151,8 +151,8 @@ describe('classifyChange invariants', () => {
           };
           const result = classifyChange(detected);
           expect(result.type).toBe('non-breaking');
-        }
-      )
+        },
+      ),
     );
   });
 });

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { validateSnapshot, formatReport } from './validate.js';
 import { fileURLToPath } from 'node:url';
+import { formatReport, validateSnapshot } from './validate.js';
 
 interface ParsedArgs {
   base: string | undefined;

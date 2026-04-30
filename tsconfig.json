@@ -21,6 +21,7 @@
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "types": ["node"]
   },
   "include": ["packages/**/*"],

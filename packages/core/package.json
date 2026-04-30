@@ -1,15 +1,30 @@
 {
-  "name": "@mcp-schema-evolution/core",
+  "name": "@reaatech/mcp-schema-evolution",
   "version": "0.0.0",
   "description": "Schema diffing, wrapper generation, deprecation, and changelog",
+  "license": "MIT",
+  "author": "Rick Somers <rick@reaatech.com> (https://reaatech.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reaatech/mcp-schema-evolution.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/reaatech/mcp-schema-evolution#readme",
+  "bugs": {
+    "url": "https://github.com/reaatech/mcp-schema-evolution/issues"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./dist/index.js"
     }
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsc",
@@ -27,32 +42,14 @@
     "backward-compatibility",
     "model-context-protocol"
   ],
-  "author": "Rick Somers <rick@reaatech.com> (https://reaatech.com)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reaatech/mcp-schema-evolution.git",
-    "directory": "packages/core"
-  },
-  "bugs": {
-    "url": "https://github.com/reaatech/mcp-schema-evolution/issues"
-  },
-  "homepage": "https://github.com/reaatech/mcp-schema-evolution#readme",
   "dependencies": {},
+  "peerDependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "fast-check": "^4.7.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "peerDependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
