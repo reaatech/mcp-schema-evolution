@@ -1,9 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
 import {
-  type EvolutionError,
-  type SchemaChange,
   diffToolSnapshots,
+  type EvolutionError,
   loadToolsFromFile,
+  type SchemaChange,
 } from '@reaatech/mcp-schema-evolution';
 
 export interface ValidationPolicy {

@@ -52,7 +52,9 @@
     "vitest": "^4.1.5"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["@biomejs/biome"]
+    "onlyBuiltDependencies": [
+      "@biomejs/biome"
+    ]
   },
   "packageManager": "pnpm@10.22.0"
 }

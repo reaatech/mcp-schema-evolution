@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { classifyChange, detectFieldRenames } from './diff.js';
-import { EvolutionError } from './types.js';
 import type { DetectedChange, Tool } from './types.js';
+import { EvolutionError } from './types.js';
 
 // Test index.ts exports can be imported
 describe('index exports', () => {

@@ -1,7 +1,7 @@
 import {
-  type SchemaChange,
   diffToolSnapshots,
   loadToolsFromFile,
+  type SchemaChange,
 } from '@reaatech/mcp-schema-evolution';
 
 function formatChange(change: SchemaChange): string {
