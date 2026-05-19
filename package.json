@@ -52,7 +52,12 @@
     "vitest": "^4.1.5"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["@biomejs/biome"]
+    "onlyBuiltDependencies": ["@biomejs/biome"],
+    "overrides": {
+      "fast-uri": "3.1.2",
+      "hono": "4.12.18",
+      "ip-address": "10.1.1"
+    }
   },
   "packageManager": "pnpm@10.22.0"
 }
