@@ -1,2 +1,2 @@
-export { validateSnapshot, formatReport } from './validate.js';
 export type { ValidationPolicy, ValidationResult } from './validate.js';
+export { formatReport, validateSnapshot } from './validate.js';

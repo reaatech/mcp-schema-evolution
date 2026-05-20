@@ -155,7 +155,7 @@ function deepEqual(a: unknown, b: unknown): boolean {
   if (aKeys.length !== bKeys.length) return false;
 
   for (const key of aKeys) {
-    if (!Object.prototype.hasOwnProperty.call(bObj, key)) return false;
+    if (!Object.hasOwn(bObj, key)) return false;
     if (!deepEqual(aObj[key], bObj[key])) return false;
   }
 
@@ -272,14 +272,14 @@ function diffTool(oldTool: Tool, newTool: Tool, options?: DiffOptions): SchemaCh
 
   // Detect removed fields
   for (const fieldName of Object.keys(oldProps)) {
-    if (!Object.prototype.hasOwnProperty.call(newProps, fieldName)) {
+    if (!Object.hasOwn(newProps, fieldName)) {
       removedFields.push(fieldName);
     }
   }
 
   // Detect added fields
   for (const fieldName of Object.keys(newProps)) {
-    if (!Object.prototype.hasOwnProperty.call(oldProps, fieldName)) {
+    if (!Object.hasOwn(oldProps, fieldName)) {
       addedFields.push(fieldName);
     }
   }
