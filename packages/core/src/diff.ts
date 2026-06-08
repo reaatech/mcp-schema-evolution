@@ -34,7 +34,7 @@ function validateToolArray(parsed: unknown, path: string): Result<Tool[]> {
     };
   }
 
-  const invalidIndex = (parsed as unknown[]).findIndex((item) => !isTool(item));
+  const invalidIndex = parsed.findIndex((item) => !isTool(item));
   if (invalidIndex !== -1) {
     return {
       ok: false,
@@ -677,7 +677,7 @@ function isConstraintTightened(
   }
 
   if (Array.isArray(oldValue) && Array.isArray(newValue)) {
-    return (newValue as unknown[]).length < (oldValue as unknown[]).length;
+    return newValue.length < oldValue.length;
   }
 
   return !deepEqual(oldValue, newValue);
