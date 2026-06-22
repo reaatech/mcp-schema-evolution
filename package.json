@@ -60,7 +60,9 @@
       "hono": ">=4.12.25",
       "ip-address": ">=10.1.1",
       "fast-uri": ">=3.1.2",
-      "qs": ">=6.15.2"
+      "qs": ">=6.15.2",
+      "js-yaml": ">=4.2.0",
+      "read-yaml-file": ">=3.0.0"
     }
   },
   "packageManager": "pnpm@10.22.0"
