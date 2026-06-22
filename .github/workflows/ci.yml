@@ -100,8 +100,7 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
 
-      - name: Fallback install
-        if: steps.cache-restore-format.outputs.cache-hit != 'true'
+      - name: Re-link workspace packages
         run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Check formatting
@@ -137,8 +136,7 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
 
-      - name: Fallback install
-        if: steps.cache-restore-lint.outputs.cache-hit != 'true'
+      - name: Re-link workspace packages
         run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Lint
@@ -174,8 +172,7 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
 
-      - name: Fallback install
-        if: steps.cache-restore-typecheck.outputs.cache-hit != 'true'
+      - name: Re-link workspace packages
         run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Type check
