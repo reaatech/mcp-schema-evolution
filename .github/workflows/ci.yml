@@ -92,12 +92,17 @@ jobs:
 
       - name: Restore dependencies
         uses: actions/cache@v4
+        id: cache-restore-format
         with:
           path: |
             ~/.local/share/pnpm/store
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Fallback install
+        if: steps.cache-restore-format.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Check formatting
         run: pnpm biome format --write . && git diff --exit-code
@@ -124,12 +129,17 @@ jobs:
 
       - name: Restore dependencies
         uses: actions/cache@v4
+        id: cache-restore-lint
         with:
           path: |
             ~/.local/share/pnpm/store
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Fallback install
+        if: steps.cache-restore-lint.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Lint
         run: pnpm lint
@@ -156,12 +166,17 @@ jobs:
 
       - name: Restore dependencies
         uses: actions/cache@v4
+        id: cache-restore-typecheck
         with:
           path: |
             ~/.local/share/pnpm/store
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Fallback install
+        if: steps.cache-restore-typecheck.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Type check
         run: pnpm typecheck
