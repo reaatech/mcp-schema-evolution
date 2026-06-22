@@ -94,6 +94,22 @@ describe('runDiff', () => {
     rmSync(dir, { recursive: true });
   });
 
+  it('returns 0 with JSON output for identical snapshots', () => {
+    const dir = tempDir();
+    const snapshot = JSON.stringify([
+      { name: 'search', inputSchema: { type: 'object', properties: { q: { type: 'string' } } } },
+    ]);
+    const oldPath = join(dir, 'old.json');
+    const newPath = join(dir, 'new.json');
+    writeFileSync(oldPath, snapshot);
+    writeFileSync(newPath, snapshot);
+
+    const code = runDiff(oldPath, newPath, { json: true });
+    expect(code).toBe(0);
+
+    rmSync(dir, { recursive: true });
+  });
+
   it('returns 1 for breaking changes in JSON mode', () => {
     const dir = tempDir();
     const oldSnap = JSON.stringify([tool('search', { q: { type: 'string' } })]);

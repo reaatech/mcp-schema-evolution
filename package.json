@@ -44,7 +44,7 @@
     "@changesets/changelog-github": "^0.6.0",
     "@changesets/cli": "^2.27.1",
     "@modelcontextprotocol/sdk": "^1.0.0",
-    "@types/node": "^25.6.0",
+    "@types/node": "^26.0.0",
     "@vitest/coverage-v8": "^4.1.9",
     "fast-check": "^4.7.0",
     "tsx": "^4.7.0",
