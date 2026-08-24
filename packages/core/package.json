@@ -46,10 +46,10 @@
   ],
   "dependencies": {},
   "peerDependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0"
+    "@modelcontextprotocol/sdk": "^1.30.0"
   },
   "devDependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "fast-check": "^4.9.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
