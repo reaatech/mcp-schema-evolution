@@ -43,7 +43,7 @@
     "@biomejs/biome": "^2.5.2",
     "@changesets/changelog-github": "^0.6.0",
     "@changesets/cli": "^2.27.1",
-    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "@types/node": "^26.1.0",
     "@vitest/coverage-v8": "^4.1.10",
     "fast-check": "^4.9.0",
